@@ -163,6 +163,11 @@ async function finishMatch({ matchId, winnerId, reason, totalRounds, players }) 
   }
 }
 
+async function wake() {
+  await db().execute("SELECT * FROM users LIMIT 1");
+  return { status: "ok" };
+}
+
 async function close() {
   if (pool) await pool.end();
   pool = null;
@@ -182,4 +187,5 @@ module.exports = {
   cancelMatch,
   insertRound,
   finishMatch,
+  wake,
 };
