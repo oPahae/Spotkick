@@ -29,6 +29,15 @@ async function main() {
   app.disable("x-powered-by");
   app.use(express.json({ limit: "250kb" }));
 
+  app.get("/api/wake", async (req, res, next2) => {
+    try {
+      const response = await db.wake();
+      res.json(response);
+    } catch (err) {
+      next2(err);
+    }
+  });
+
   app.get("/api/health", (req, res) => res.json({ ok: true }));
   app.use("/api/auth", auth.router);
 
@@ -67,7 +76,7 @@ async function main() {
   });
 
   const shutdown = async () => {
-    await db.close().catch(() => {});
+    await db.close().catch(() => { });
     process.exit(0);
   };
   process.on("SIGINT", shutdown);
