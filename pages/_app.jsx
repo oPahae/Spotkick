@@ -4,16 +4,21 @@ import { AuthProvider, useAuth } from "../lib/authContext";
 import { MatchProvider } from "../lib/matchContext";
 import BootGate from "../components/bootGate";
 import ConnectionBanner from "../components/connectionBanner";
+import { PartyProvider } from "../lib/partyContext";
+import PartyInvite from "../components/partyInvite";
 
 function Shell({ Component, pageProps, route }) {
   const auth = useAuth();
   return (
     <BootGate auth={auth}>
       <MatchProvider>
-        <div key={route} className="animate-pageIn">
-          <Component {...pageProps} />
-        </div>
-        <ConnectionBanner />
+        <PartyProvider>
+          <div key={route} className="animate-pageIn">
+            <Component {...pageProps} />
+          </div>
+          <ConnectionBanner />
+          <PartyInvite />
+        </PartyProvider>
       </MatchProvider>
     </BootGate>
   );

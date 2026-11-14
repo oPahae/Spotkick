@@ -2,6 +2,7 @@ const { Server } = require("socket.io");
 const db = require("./db");
 const { verifyToken } = require("./auth");
 const { MatchManager } = require("./matchManager");
+const { PartyManager } = require("./partyManager");
 
 function wrap(fn) {
   return async (payload, ack) => {
@@ -32,6 +33,7 @@ function attachSocket(httpServer) {
     maxHttpBufferSize: 1e5,
   });
   const manager = new MatchManager(io);
+  const parties = new PartyManager(io);
   const sockets = new Map();
 
   io.use(async (socket, next) => {
@@ -81,15 +83,29 @@ function attachSocket(httpServer) {
       return {};
     }));
 
+    socket.on("party:create", wrap(async () => parties.create(await fresh(), socket)));
+    socket.on("party:join", wrap(async (p) => parties.join(await fresh(), socket, p.code)));
+    socket.on("party:leave", wrap(async () => parties.leave(user, socket)));
+    socket.on("party:role", wrap(async (p) => parties.setRole(user, p.role)));
+    socket.on("party:settings", wrap(async (p) => parties.setSettings(user, p)));
+    socket.on("party:invite", wrap(async (p) => parties.invite(user, p.username)));
+    socket.on("party:start", wrap(async () => parties.start(user)));
+    socket.on("party:rematch", wrap(async () => parties.rematch(user)));
+    socket.on("party:resume", wrap(async () => parties.resume(user, socket)));
+    socket.on("party:input", (d) => {
+      if (d && typeof d === "object") parties.input(user, d);
+    });
+
     socket.on("disconnect", () => {
       if (sockets.get(user.id) === socket) {
         sockets.delete(user.id);
         manager.handleDisconnect(user.id);
+        parties.handleDisconnect(user.id);
       }
     });
   });
 
-  return { io, manager };
+  return { io, manager, parties };
 }
 
 module.exports = { attachSocket };

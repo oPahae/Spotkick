@@ -5,7 +5,7 @@ import { R, SPOT_Z, LAUNCH_S, tauOf, sampleAt } from "./shared";
 
 let ballTexture = null;
 
-function getBallTexture() {
+export function getBallTexture() {
   if (ballTexture) return ballTexture;
   const canvas = document.createElement("canvas");
   canvas.width = 512;

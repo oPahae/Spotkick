@@ -1,0 +1,25 @@
+# dépendances
+node_modules/
+
+# build Next.js
+.next/
+out/
+
+# variables d'environnement (contient tes mots de passe et ton JWT_SECRET)
+.env
+.env.local
+.env.*.local
+
+# logs
+*.log
+npm-debug.log*
+
+# système / éditeurs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# divers
+*.tsbuildinfo
+coverage/
