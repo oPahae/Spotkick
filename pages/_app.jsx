@@ -31,6 +31,7 @@ export default function App({ Component, pageProps, router }) {
         <title>Spot Kick - Penalty Shootout</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Real-time 1v1 multiplayer 3D penalty shootout." />
+        <link rel="icon" href="/logo.png" />
       </Head>
       <AuthProvider>
         <Shell Component={Component} pageProps={pageProps} route={router.pathname} />
