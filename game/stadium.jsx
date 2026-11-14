@@ -74,7 +74,7 @@ function buildLines() {
   return g;
 }
 
-function grassTexture(maxAniso) {
+export function grassTexture(maxAniso) {
   const canvas = document.createElement("canvas");
   canvas.width = 2048;
   canvas.height = 2048;
@@ -102,7 +102,7 @@ function grassTexture(maxAniso) {
   return tex;
 }
 
-function crowdTexture() {
+export function crowdTexture() {
   const canvas = document.createElement("canvas");
   canvas.width = 512;
   canvas.height = 128;
@@ -131,7 +131,7 @@ function crowdTexture() {
   return tex;
 }
 
-function adTexture() {
+export function adTexture() {
   const canvas = document.createElement("canvas");
   canvas.width = 1024;
   canvas.height = 64;
@@ -158,7 +158,7 @@ function adTexture() {
   return tex;
 }
 
-function Stand({ position, rotationY = 0, width, tiers = 12, material }) {
+export function Stand({ position, rotationY = 0, width, tiers = 12, material }) {
   const items = [];
   for (let i = 0; i < tiers; i += 1) {
     items.push(
@@ -178,7 +178,7 @@ function Stand({ position, rotationY = 0, width, tiers = 12, material }) {
   );
 }
 
-function FloodTower({ position }) {
+export function FloodTower({ position }) {
   const x = position[0];
   const z = position[2];
   const lookY = Math.atan2(-x, -z);

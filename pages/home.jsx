@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Play, User, UserRound, Trophy, Target, ShieldX, Swords, ArrowRight } from "lucide-react";
+import { Play, User, UserRound, Trophy, Target, ShieldX, Swords, ArrowRight, Goal as GoalIcon } from "lucide-react";
 import Screen from "../components/screen";
 import TopBar from "../components/topBar";
 import Avatar from "../components/avatar";
@@ -87,6 +87,20 @@ export default function Home() {
               {inMatch ? "Rejoin match" : "Play"}
             </Button>
             <p className="max-w-[16rem] text-sm text-chalk/55">Host a match or join one that is already waiting for an opponent.</p>
+          </div>
+        </section>
+
+        <section aria-label="Single player match" className="relative overflow-hidden rounded-3xl bg-[linear-gradient(135deg,rgba(31,111,224,0.30),rgba(8,20,15,0.6)_60%)] p-8 ring-1 ring-inset ring-[#1f6fe0]/40 backdrop-blur-xl sm:p-10">
+          <GoalIcon className="pointer-events-none absolute -right-6 -top-6 h-48 w-48 text-chalk/[0.05]" aria-hidden="true" />
+          <p className="font-display text-sm font-bold uppercase tracking-[0.3em] text-sky-400">Single player</p>
+          <h2 className="mt-2 max-w-md font-display text-4xl font-black uppercase italic leading-[0.95] sm:text-5xl">
+            6 v 6 match. Play it from the pitch.
+          </h2>
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <Button size="lg" icon={GoalIcon} variant="secondary" onClick={() => router.push("/match")} className="min-w-[14rem]">
+              Match single player
+            </Button>
+            <p className="max-w-[18rem] text-sm text-chalk/55">Pick your position and the difficulty, play in first person against smart AI, alone or in a party of up to 6 friends.</p>
           </div>
         </section>
 

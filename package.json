@@ -4,10 +4,11 @@
   "private": true,
   "description": "Real-time multiplayer 3D penalty shootout game",
   "scripts": {
-    "dev": "node server/index.js",
-    "build": "next build",
-    "start": "cross-env NODE_ENV=production node server/index.js",
-    "db:init": "node server/initDb.js"
+    "dev": "node scripts/buildEngine.js && node server/index.js",
+    "build": "node scripts/buildEngine.js && next build",
+    "start": "node scripts/buildEngine.js && cross-env NODE_ENV=production node server/index.js",
+    "db:init": "node server/initDb.js",
+    "build:engine": "node scripts/buildEngine.js"
   },
   "engines": {
     "node": ">=18.17"
@@ -19,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
+    "esbuild": "^0.25.12",
     "express": "^4.19.2",
     "express-rate-limit": "^7.4.0",
     "jsonwebtoken": "^9.0.2",
